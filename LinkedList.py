@@ -12,7 +12,7 @@ class MyLinkedList:
     def get(self, index: int) -> int:
         iter = self.head
         if index < 0 or index > self.size-1:
-            print("Invalid index")
+            # print("Invalid index")
             return
         if index == 0:
             return iter.val
@@ -40,15 +40,37 @@ class MyLinkedList:
         self.size += 1
 
     def addAtIndex(self, index: int, val: int) -> None:
-        newN = Node(val, next=None)
-        for _ in range(index):
+        # newN = Node(val, next=None)
+        if index < 0:
+            index = 0
+        if index > self.size:
+            return
+        curr = self.head
+        for _ in range(index-1):
+            curr = curr.next
+        self.size += 1
+        newN = Node(val, next=curr.next)
+        curr.next = newN
 
     def deleteAtIndex(self, index: int) -> None:
-        pass
+        if index < 0 or index >= self.size:
+            return
+        curr = self.head
+        self.size -= 1
+        for _ in range(index-1):
+            curr = curr.next
+        curr.next = curr.next.next
 
 
 if __name__ == "__main__":
     ll = MyLinkedList()
-    ll.addAtHead(4)
+    # ll.addAtHead(6)
+    # ll.addAtHead(8)
+    ll.addAtHead(12)
+    # ll.addAtIndex(1, 10)
+    # ll.addAtIndex(1, 11)
+    ll.deleteAtIndex(1)
     print(ll.get(0))
     print(ll.get(1))
+    # print(ll.get(2))
+    # print(ll.get(3))
